@@ -7,14 +7,18 @@ import matplotlib.pyplot as plt
 quit = False
 
 #----Setup dataframe and query it here prior to creating visualisation and UI functions----#
-spotify_raw_data = pd.read_csv('data/spotify-2023.csv', 
+spotify_raw_data = pd.read_csv('spotify-2023.csv', on_bad_lines='warn', encoding='ISO-8859-1' )
+# This prints all columns of the dataframe but only the bottom 10 and top 10 are printed
+def showFullDataFrame():   
+    with pd.option_context('display.max_rows', 40,
+                       'display.max_columns', None,
+                       'display.precision', 3,
+                       ):
+        print(spotify_raw_data)
 
-on_bad_lines='warn' )
-
-def showFullDataset():
-    print(spotify_raw_data)
-
-
+#This function will compare song's danceability with the instrumentalness of the song
+def danceabilityVSInstrumentallness():
+    print("yo wsg")
 
 
 
@@ -25,8 +29,8 @@ def userOptions():
     print("""Welcome to the spotify data analysis of 2023!
           
     Please select an option:
-    1 - Show full original dataset
-    2 - Blank
+    1 - Show the full dataframe
+    2 - Show a comparison between danceability and the instrumentalness of songs
     3 - Blank
     4 - Quit Program
         """)
@@ -35,9 +39,9 @@ def userOptions():
         choice = int(input('Enter Selection: '))
 
         if choice == 1:
-            showFullDataset()
-        #elif choice == 2:
-        #    showUpdatedData()
+            showFullDataFrame()
+        elif choice == 2:
+            danceabilityVSInstrumentallness()
         #elif choice == 3:
         #    showCharts()
         elif choice == 4:
