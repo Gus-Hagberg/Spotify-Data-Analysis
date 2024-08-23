@@ -16,7 +16,8 @@ def showFullDataFrame():
                        'display.max_columns', None,
                        'display.precision', 3,
                        ):
-        print(spotify_raw_data.head(100))
+        display(spotify_raw_data.head(100))
+  
 
 #This function will compare song's danceability% with the instrumentalness of the song
 def danceabilityVSInstrumentallness(data):
@@ -28,7 +29,7 @@ def danceabilityVSInstrumentallness(data):
     sorted_data = filtered_data.sort_values(by='danceability_%', ascending=False)
     
     # Display only the top 100 records
-    top_100_data = sorted_data.head(100)
+    top_100_data = sorted_data.head(150)
     
     # Display the sorted top 100 DataFrame
     with pd.option_context('display.max_rows', None,
@@ -41,20 +42,22 @@ def danceabilityVSInstrumentallness(data):
     
 
 #This function compares songs energy% to bpm of the song
-# Define the function again to use the updated data
+# Defining
 def energyVSBPM(data):
-    # Select the relevant columns
+    # Selecting song name, energy% and bpm columns
     selected_data = data[['track_name', 'energy_%', 'bpm']]
-    
-    # Sort the data by energy percentage in descending order
-    sorted_data = selected_data.sort_values(by='energy_%', ascending=False)
-    
-    # Get the top 100 tracks
-    top_100_tracks = sorted_data.head(100)
-    
-    # Display the top 100 tracks
-    display(top_100_tracks)
 
+    # Sorting the data by energy percentage in descending order
+    sorted_data = selected_data.sort_values(by='energy_%', ascending=False)
+    top_100_tracks = sorted_data.head(100)
+    bottom_100_tracks = sorted_data.tail(100)
+    # This lets there be no limit for how many rows the dataframe can print instead of getting truncated (shortened with only the first and last results)
+    with pd.option_context('display.max_rows', None,
+                       'display.max_columns', None,
+                       'display.precision', 3,
+                       ):
+        display(top_100_tracks)
+        display(bottom_100_tracks)
 
 #This function is a calculator for different statistics from this dataset
 def mMM():
@@ -135,8 +138,8 @@ def userOptions():
           
     Please select an option:
     1 - Show the full dataframe
-    2 - Show a comparison between danceability and the instrumentalness of songs
-    3 - Show a comparison between energy and BPM of songs
+    2 - Show a comparison between danceability, instrumentalness, and energy of the songs.
+    3 - Show a comparison between energy and BPM of the songs.
     4 - Use the statistic calculator
     5 - Quit Program
         """)
